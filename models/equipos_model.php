@@ -11,7 +11,9 @@ class Equipos {
     }
 
     public function getEquipos() {
-        $consulta = $this->con->query("SELECT * FROM Equipos");
+        $consulta = $this->con->query("SELECT idEquipo, nombreEquipo, nombreLiga FROM Equipos E 
+                                        INNER JOIN Ligas L
+                                        ON E.idLiga = L.idLiga");
         
         while ($row = $consulta->fetch_assoc()) {
             $this->equipos[] = $row;
