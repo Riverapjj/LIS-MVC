@@ -1,7 +1,7 @@
 <?php
-    class Conectar{
+    class Conexion{
 
-        public static function conexion() {
+        public static function conectar() {
             $conexion = new mysqli("localhost", "root", "", "lismvc");
 
             return $conexion;
