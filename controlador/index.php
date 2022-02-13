@@ -1,12 +1,12 @@
 <?php
 require_once("modelo/index.php");
-require("validaciones.php")
+require("validaciones.php");
 class modelocontroller{
     private $model;
+    private $errores;
     public function __construct(){
        $this->model = new Modelo();
-       $this->$errores = array();
-
+       $this->errores = array();
     }
     //mostrar
     static function index(){
@@ -16,6 +16,7 @@ class modelocontroller{
 
 
     }
+
     static function nuevo(){
       
         require_once("vista/nuevo.php");
@@ -26,15 +27,25 @@ class modelocontroller{
         $nombre=$_REQUEST['nombre'];
         $precio=$_REQUEST['precio'];
         $data="'".$nombre."',".$precio;
-        $producto= new Modelo();
 
-        if (isset($nombre) || isset($precio)) {
-            if (!isEmpty($nombre) || !isEmpty($precio)) {
-                arraypush($errores, "No puede introducir valores vacios.")
-            }else if ()
+        if (!isset($nombre) || isEmpty($nombre)) {
+            //header("location:index.php?m=nuevo");
+            echo "<script>alert('Debes ingresar un nombre')</script>";
+        }else if(!isString($nombre)) {
+            //header("location:index.php?m=nuevo");
+            echo "<script>alert('El nombre solo acepta letras.')</script>";
+        }else if (!isset($precio) || isEmpty($precio)) {
+           // header("location:index.php?m=nuevo");
+            echo "<script>alert('Debes ingresar un precio')</script>";
+        }else if(!isDecimal($precio)) {
+            //header("location:index.php?m=nuevo");
+            echo "<script>alert('Formato de precio incorrecto.')</script>";
+        }else {
+            
+            $producto= new Modelo();
+            $dato=$producto->insertar("productos",$data);
+            header("location:".urlsite);
         }
-        $dato=$producto->insertar("productos",$data);
-        header("location:".urlsite);
 
     
     }
@@ -42,11 +53,12 @@ class modelocontroller{
     static function editar(){
         $id= $_REQUEST['id'];
         $producto= new Modelo();
+        
         $dato=$producto->mostrar("productos","id=".$id);
         require_once("vista/editar.php");
 
-    
     }
+
     static function actualizar(){
         $id= $_REQUEST['id'];
       
@@ -54,8 +66,26 @@ class modelocontroller{
      $precio=$_REQUEST['precio'];
      $data="nombre='".$nombre."',precio=".$precio;
      $producto= new Modelo();
-     $dato=$producto->actualizar("productos",$data,"id=".$id);
-     header("location:".urlsite);
+
+     if (!isset($nombre) || isEmpty($nombre)) {
+        //header("location:index.php?m=nuevo");
+        echo "<script>alert('Debes ingresar un nombre')</script>";
+    }else if(!isString($nombre)) {
+        //header("location:index.php?m=nuevo");
+        echo "<script>alert('El nombre solo acepta letras.')</script>";
+    }else if (!isset($precio) || isEmpty($precio)) {
+       // header("location:index.php?m=nuevo");
+        echo "<script>alert('Debes ingresar un precio')</script>";
+    }else if(!isDecimal($precio)) {
+        //header("location:index.php?m=nuevo");
+        echo "<script>alert('Formato de precio incorrecto.')</script>";
+    }else {
+        
+        $producto= new Modelo();
+        $dato=$producto->actualizar("productos",$data,"id=".$id);
+        header("location:".urlsite);
+    }
+
 
     
     }
