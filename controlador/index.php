@@ -1,10 +1,11 @@
 <?php
 require_once("modelo/index.php");
+require("validaciones.php")
 class modelocontroller{
     private $model;
     public function __construct(){
        $this->model = new Modelo();
-
+       $this->$errores = array();
 
     }
     //mostrar
@@ -22,12 +23,18 @@ class modelocontroller{
     }
     static function guardar(){
       
-     $nombre=$_REQUEST['nombre'];
-     $precio=$_REQUEST['precio'];
-     $data="'".$nombre."',".$precio;
-     $producto= new Modelo();
-     $dato=$producto->insertar("productos",$data);
-     header("location:".urlsite);
+        $nombre=$_REQUEST['nombre'];
+        $precio=$_REQUEST['precio'];
+        $data="'".$nombre."',".$precio;
+        $producto= new Modelo();
+
+        if (isset($nombre) || isset($precio)) {
+            if (!isEmpty($nombre) || !isEmpty($precio)) {
+                arraypush($errores, "No puede introducir valores vacios.")
+            }else if ()
+        }
+        $dato=$producto->insertar("productos",$data);
+        header("location:".urlsite);
 
     
     }
