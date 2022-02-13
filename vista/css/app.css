@@ -1,0 +1,29 @@
+.panel{
+    max-width: auto;
+    margin: auto;
+    max-height: auto;
+   text-align: center;
+    background-color: blueviolet;
+
+}
+.text-center{
+    text-align: center;
+    color: rgb(170, 238, 130);
+    
+    
+}
+table,tr,td{
+    border: 1px solid rgb(0, 124, 128);
+    margin-right: auto ;
+    margin-left: auto;
+    text-align: left;
+ 
+}
+.btn
+{
+    background: rgb(0, 204, 255); color: rgb(2, 0, 8);padding: 10px 20px; display: inline-block; text-decoration: none;
+    
+}
+.nv{
+  background-color:mediumturquoise;
+}
